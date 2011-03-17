@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+require("./lib/buster-jstestdriver");
+
+var context = {
+    sinon: require("sinon"),
+    TestCase: TestCase,
+    jstestdriver: jstestdriver
+};
+
+var loader = require("buster-script-loader").create(context);
+
+loader.onLoad(function (ctx) {
+
+});
+
+loader.add(__dirname + "/jstestdriver/Asserts.js");
+loader.add("/home/christian/projects/PubSubJS/pubsub.js");
+loader.add("/home/christian/projects/PubSubJS/test-pubsub.js");
+
+loader.load();

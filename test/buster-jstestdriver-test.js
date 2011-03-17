@@ -11,6 +11,14 @@ buster.testCase("Buster JsTestDriver console test", {
 });
 
 buster.testCase("Buster JsTestDriver TestCase test", {
+    setUp: function () {
+        sinon.stub(buster.test, "autoRun").returns(function () {});
+    },
+
+    tearDown: function () {
+        buster.test.autoRun.restore();
+    },
+
     "should expose TestCase function": function () {
         buster.assert.isFunction(TestCase);
     },
@@ -32,20 +40,18 @@ buster.testCase("Buster JsTestDriver TestCase test", {
         var testCase = TestCase("MyTests", methods);
 
         buster.assert.same(testCase.prototype, methods);
-    },
-
-    "should fire onCreate callback": function () {
-        var listener = sinon.spy();
-        TestCase.onCreate(listener);
-
-        TestCase("SomeNiceTests");
-
-        buster.assert(listener.calledOnce);
-        buster.assert.equals(listener.args[0][0].testCaseName, "SomeNiceTests");
     }
 });
 
 buster.testCase("Buster JsTestDriver parse test", {
+    setUp: function () {
+        sinon.stub(buster.test, "autoRun").returns(function () {});
+    },
+
+    tearDown: function () {
+        buster.test.autoRun.restore();
+    },
+
     "should expose test case name": function () {
         var context = TestCase("MyTests").parse();
 
@@ -109,5 +115,48 @@ buster.testCase("Buster JsTestDriver parse test", {
         var context = TestCase("SomeTests", { tearDown: tearDown }).parse();
 
         buster.assert.isUndefined(context.testCase.tearDown);
+    }
+});
+
+buster.testCase("Buster JsTestDriver auto running", {
+    setUp: function () {
+        delete buster.jstd.TestCase.run;
+        sinon.stub(buster.test, "autoRun").returns(function () {});
+    },
+
+    tearDown: function () {
+        buster.test.autoRun.restore();
+    },
+
+    "should call autoRun when creating testCase": function () {
+        TestCase("Some tests");
+
+        buster.assert(buster.test.autoRun.calledOnce);
+    },
+
+    "should only call autoRun for the first test case": function () {
+        TestCase("Some tests");
+        TestCase("Some tests");
+
+        buster.assert(buster.test.autoRun.calledOnce);
+    },
+
+    "should call runner returned from autoRun with test case": function () {
+        var run = sinon.spy();
+        buster.test.autoRun.returns(run);
+        var testCase = TestCase("Some tests");
+
+        buster.assert(run.calledOnce);
+        buster.assert(run.calledWith(testCase));
+    },
+
+    "should always yield test case to runner": function () {
+        var run = sinon.spy();
+        buster.test.autoRun.returns(run);
+        var testCase = TestCase("Some tests");
+        var testCase2 = TestCase("Some tests");
+
+        buster.assert(run.calledWith(testCase));
+        buster.assert(run.calledWith(testCase2));
     }
 });

@@ -4,3 +4,6 @@
 [submodule "node_modules/sinon"]
 	path = node_modules/sinon
 	url = git@github.com:cjohansen/Sinon.JS.git
+[submodule "node_modules/buster-script-loader"]
+	path = node_modules/buster-script-loader
+	url = git@git.cjohansen.no:buster-js/buster-script-loader.git

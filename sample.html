@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Buster.JS JsTestDriver adapter</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="node_modules/buster/resources/buster-test.css">
+  </head>
+  <body>
+    <h1>Buster.JS JsTestDriver adapter</h1>
+    <script type="text/javascript" src="node_modules/buster/buster-browser.js"></script>
+    <script type="text/javascript" src="lib/buster-jstestdriver.js"></script>
+    <script type="text/javascript" src="Asserts.js"></script>
+    <script type="text/javascript">
+      function assert() {
+          return assertTrue.apply(this, arguments);
+      }
+    </script>
+    <script type="text/javascript" src="../../PubSubJS/pubsub.js"></script>
+    <script type="text/javascript" src="../../PubSubJS/test-pubsub.js"></script>
+  </body>
+</html>

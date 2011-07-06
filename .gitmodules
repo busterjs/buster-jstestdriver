@@ -1,9 +1,9 @@
 [submodule "node_modules/buster"]
 	path = node_modules/buster
-	url = git@git.cjohansen.no:buster-js/buster.git
+	url = git://gitorious.org/buster/buster.git
 [submodule "node_modules/sinon"]
 	path = node_modules/sinon
 	url = git@github.com:cjohansen/Sinon.JS.git
 [submodule "node_modules/buster-script-loader"]
 	path = node_modules/buster-script-loader
-	url = git@git.cjohansen.no:buster-js/buster-script-loader.git
+	url = git://gitorious.org/buster/buster-script-loader.git

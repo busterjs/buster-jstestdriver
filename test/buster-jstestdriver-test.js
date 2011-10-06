@@ -4,6 +4,7 @@ if (typeof require != "undefined") {
 }
 
 var assert = buster.assert;
+var refute = buster.refute;
 
 buster.testCase("Buster JsTestDriver console test", {
     "should be instance of buster.eventedLogger": function () {
@@ -109,14 +110,14 @@ buster.testCase("Buster JsTestDriver parse test", {
         var setUp = function () {};
         var context = TestCase("SomeTests", { setUp: setUp }).parse();
 
-        assert.isUndefined(context.testCase.setUp);
+        refute.defined(context.testCase.setUp);
     },
 
     "should not copy tearDown to testCase object": function () {
         var tearDown = function () {};
         var context = TestCase("SomeTests", { tearDown: tearDown }).parse();
 
-        assert.isUndefined(context.testCase.tearDown);
+        refute.defined(context.testCase.tearDown);
     }
 });
 

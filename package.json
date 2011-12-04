@@ -1,0 +1,24 @@
+{
+    "name": "buster-jstestdriver",
+    "version": "0.1.0",
+    "description": "Run JsTestDriver tests with Buster.JS",
+    "homepage": "http://busterjs.org/docs/buster-assertions",
+    "author": { "name": "August Lilleaas and Christian Johansen" },
+    "contributors": [{
+        "name": "Christian Johansen",
+        "email": "christian@cjohansen.no",
+        "url": "http://cjohansen.no"
+    }, {
+        "name": "August Lilleaas",
+        "email": "august.lilleaas@gmail.com",
+        "url": "http://augustl.com"
+    }],
+    "main": "./lib/buster-jstestdriver",
+    "repository": {
+        "type": "git",
+        "url": "git://gitorious.org/buster/buster-jstestdriver.git"
+    },
+    "dependencies": {
+        "buster": "~0.2"
+    }
+}

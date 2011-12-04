@@ -1,7 +1,8 @@
 if (typeof require != "undefined") {
     var buster = require("buster");
     var sinon = require("sinon");
-    require("../lib/buster-jstestdriver");
+    var busterJstd = require("../lib/buster-jstestdriver");
+    var Path = require("path");
 }
 
 var assert = buster.assert;
@@ -163,6 +164,43 @@ buster.testCase("Buster JsTestDriver", {
 
             assert(run.calledWith(testCase));
             assert(run.calledWith(testCase2));
+        }
+    },
+
+    "configuring remote runner": {
+        requiresSupportFor: { "Node buster-jstestdriver module": busterJstd },
+
+        setUp: function () {
+            this.root = Path.resolve(__dirname, "..");
+            this.configuration = buster.eventEmitter.create();
+            this.addResource = this.spy();
+            this.appendToLoad = this.spy();
+            this.resourceSet = {
+                addResource: this.addResource,
+                appendToLoad: this.appendToLoad
+            };
+        },
+
+        "should add libraries to resource set": function () {
+            busterJstd.configure(this.configuration);
+
+            this.configuration.emit("load:resources", this.resourceSet);
+
+            assert.called(this.resourceSet.addResource);
+            assert.calledWith(this.addResource, this.root + "/lib/buster-jstestdriver.js");
+            assert.calledWith(this.addResource, this.root + "/Asserts.js");
+        },
+
+        "should serve combined library": function () {
+            busterJstd.configure(this.configuration);
+
+            this.configuration.emit("load:resources", this.resourceSet);
+
+            assert.called(this.resourceSet.addResource);
+            assert.calledWith(this.addResource, "/jstd/bundle.js", {
+                combine: ["/jstd/buster-jstestdriver.js", "/jstd/Asserts.js"]
+            });
+            assert.calledWith(this.appendToLoad, "/jstd/bundle.js");
         }
     }
 });

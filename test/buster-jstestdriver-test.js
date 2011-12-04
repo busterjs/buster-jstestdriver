@@ -174,10 +174,12 @@ buster.testCase("Buster JsTestDriver", {
             this.root = Path.resolve(__dirname, "..");
             this.configuration = buster.eventEmitter.create();
             this.addResource = this.spy();
-            this.appendToLoad = this.spy();
+            this.addFile = this.spy();
+            this.prependToLoad = this.spy();
             this.resourceSet = {
+                addFile: this.addFile,
                 addResource: this.addResource,
-                appendToLoad: this.appendToLoad
+                prependToLoad: this.prependToLoad
             };
         },
 
@@ -186,9 +188,9 @@ buster.testCase("Buster JsTestDriver", {
 
             this.configuration.emit("load:resources", this.resourceSet);
 
-            assert.called(this.resourceSet.addResource);
-            assert.calledWith(this.addResource, this.root + "/lib/buster-jstestdriver.js");
-            assert.calledWith(this.addResource, this.root + "/Asserts.js");
+            assert.called(this.resourceSet.addFile);
+            assert.calledWith(this.addFile, this.root + "/lib/buster-jstestdriver.js");
+            assert.calledWith(this.addFile, this.root + "/Asserts.js");
         },
 
         "should serve combined library": function () {
@@ -200,7 +202,7 @@ buster.testCase("Buster JsTestDriver", {
             assert.calledWith(this.addResource, "/jstd/bundle.js", {
                 combine: ["/jstd/buster-jstestdriver.js", "/jstd/Asserts.js"]
             });
-            assert.calledWith(this.appendToLoad, "/jstd/bundle.js");
+            assert.calledWith(this.prependToLoad, "/jstd/bundle.js");
         }
     }
 });

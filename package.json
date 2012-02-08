@@ -20,5 +20,8 @@
     },
     "dependencies": {
         "buster": "~0.2"
+    },
+    "devDependencies": {
+        "buster-configuration": "~*"
     }
 }

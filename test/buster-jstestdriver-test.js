@@ -1,8 +1,9 @@
 if (typeof module === "object" && typeof require === "function") {
     var buster = require("buster");
     var sinon = require("sinon");
-    var busterJstd = require("../lib/buster-jstestdriver");
+    var busterJstd = require("../lib/extension");
     var Path = require("path");
+    var when = require("when");
 }
 
 var assert = buster.assert;
@@ -173,36 +174,37 @@ buster.testCase("Buster JsTestDriver", {
         setUp: function () {
             this.root = Path.resolve(__dirname, "..");
             this.configuration = buster.eventEmitter.create();
-            this.addResource = this.spy();
-            this.addFile = this.spy();
-            this.prependToLoad = this.spy();
+            this.addResource = this.stub();
+            this.addFileResource = this.spy();
+            this.appendToLoad = this.spy();
             this.resourceSet = {
-                addFile: this.addFile,
-                addResource: this.addResource,
-                prependToLoad: this.prependToLoad
+                addFileResource: this.addFileResource,
+                addResource: this.addResource.returns(when({})),
+                loadPath: { append: this.appendToLoad }
             };
         },
 
         "should add libraries to resource set": function () {
             busterJstd.configure(this.configuration);
 
-            this.configuration.emit("load:resources", this.resourceSet);
+            this.configuration.emit("load:framework", this.resourceSet);
 
-            assert.called(this.resourceSet.addFile);
-            assert.calledWith(this.addFile, this.root + "/lib/buster-jstestdriver.js");
-            assert.calledWith(this.addFile, this.root + "/Asserts.js");
+            assert.called(this.resourceSet.addFileResource);
+            assert.calledWith(this.addFileResource, this.root + "/lib/buster-jstestdriver.js");
+            assert.calledWith(this.addFileResource, this.root + "/Asserts.js");
         },
 
         "should serve combined library": function () {
             busterJstd.configure(this.configuration);
 
-            this.configuration.emit("load:resources", this.resourceSet);
+            this.configuration.emit("load:framework", this.resourceSet);
 
             assert.called(this.resourceSet.addResource);
-            assert.calledWith(this.addResource, "/jstd/bundle.js", {
+            assert.calledWith(this.addResource, {
+                path: "/jstd/bundle.js",
                 combine: ["/jstd/buster-jstestdriver.js", "/jstd/Asserts.js"]
             });
-            assert.calledWith(this.prependToLoad, "/jstd/bundle.js");
+            assert.calledWith(this.appendToLoad, "/jstd/bundle.js");
         }
     }
 });

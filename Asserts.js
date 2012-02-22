@@ -18,18 +18,6 @@ function expectAsserts(count) {
 }
 
 
-var fail = function fail(msg) {
-  var err = new Error(msg);
-  err.name = 'AssertError';
-
-  if (!err.message) {
-    err.message = msg;
-  }
-
-  throw err;
-};
-
-
 function isBoolean_(bool) {
   if (typeof(bool) != 'boolean') {
     fail('Not a boolean: ' + prettyPrintEntity_(bool));

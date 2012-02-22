@@ -19,7 +19,8 @@
         "url": "git://gitorious.org/buster/buster-jstestdriver.git"
     },
     "dependencies": {
-        "buster": ">=0.4.5"
+        "buster": ">=0.4.5",
+        "buster-html-doc": ">=0.1"
     },
     "devDependencies": {
         "buster-configuration": "*"

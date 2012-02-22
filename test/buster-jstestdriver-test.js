@@ -1,6 +1,7 @@
 if (typeof module === "object" && typeof require === "function") {
     var buster = require("buster");
     var sinon = require("sinon");
+    require("../lib/buster-jstestdriver");
     var busterJstd = require("../lib/extension");
     var Path = require("path");
     var when = require("when");

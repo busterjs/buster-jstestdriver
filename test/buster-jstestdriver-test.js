@@ -1,14 +1,10 @@
 if (typeof module === "object" && typeof require === "function") {
     var buster = require("buster");
-    var sinon = require("sinon");
     require("../lib/buster-jstestdriver");
     var busterJstd = require("../lib/extension");
     var Path = require("path");
     var when = require("when");
 }
-
-var assert = buster.assert;
-var refute = buster.refute;
 
 buster.testCase("Buster JsTestDriver", {
     "console": {
@@ -20,21 +16,17 @@ buster.testCase("Buster JsTestDriver", {
 
     "TestCase": {
         setUp: function () {
-            sinon.stub(buster, "autoRun").returns(function () {});
-        },
-
-        tearDown: function () {
-            buster.autoRun.restore();
+            this.stub(buster, "autoRun").returns(function () {});
         },
 
         "exposes TestCase function": function () {
-            assert.typeOf(TestCase, "function");
+            assert.isFunction(TestCase);
         },
 
         "returns function": function () {
             var testCase = TestCase();
 
-            assert.typeOf(testCase, "function");
+            assert.isFunction(testCase);
         },
 
         "sets constructor name": function () {
@@ -53,11 +45,7 @@ buster.testCase("Buster JsTestDriver", {
 
     "parse": {
         setUp: function () {
-            sinon.stub(buster, "autoRun").returns(function () {});
-        },
-
-        tearDown: function () {
-            buster.autoRun.restore();
+            this.stub(buster, "autoRun").returns(function () {});
         },
 
         "exposes test case name": function () {
@@ -129,11 +117,7 @@ buster.testCase("Buster JsTestDriver", {
     "auto running": {
         setUp: function () {
             delete buster.jstd.TestCase.run;
-            sinon.stub(buster, "autoRun").returns(function () {});
-        },
-
-        tearDown: function () {
-            buster.autoRun.restore();
+            this.stub(buster, "autoRun").returns(function () {});
         },
 
         "calls autoRun when creating testCase": function () {
@@ -150,7 +134,7 @@ buster.testCase("Buster JsTestDriver", {
         },
 
         "calls runner returned from autoRun with test case": function () {
-            var run = sinon.spy();
+            var run = this.spy();
             buster.autoRun.returns(run);
             var testCase = TestCase("Some tests");
 
@@ -159,7 +143,7 @@ buster.testCase("Buster JsTestDriver", {
         },
 
         "always yields test case to runner": function () {
-            var run = sinon.spy();
+            var run = this.spy();
             buster.autoRun.returns(run);
             var testCase = TestCase("Some tests");
             var testCase2 = TestCase("Some tests");
@@ -203,7 +187,7 @@ buster.testCase("Buster JsTestDriver", {
             assert.called(this.resourceSet.addResource);
             assert.calledWith(this.addResource, {
                 path: "/jstd/bundle.js",
-                combine: ["/jstd/buster-jstestdriver.js", "/jstd/Asserts.js"]
+                combine: ["/jstd/buster-jstestdriver.js", "jstd/jquery.js", "/jstd/Asserts.js"]
             });
             assert.calledWith(this.appendToLoad, "/jstd/bundle.js");
         }

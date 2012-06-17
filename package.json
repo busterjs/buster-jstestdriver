@@ -27,6 +27,6 @@
     },
     "devDependencies": {
         "buster-configuration": "*",
-        "when": "https://github.com/cujojs/when/tarball/1.0.2"
+        "when": "~1.3"
     }
 }

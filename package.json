@@ -1,6 +1,6 @@
 {
     "name": "buster-jstestdriver",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Run JsTestDriver tests with Buster.JS",
     "homepage": "http://busterjs.org/docs/buster-assertions",
     "author": { "name": "August Lilleaas and Christian Johansen" },
@@ -22,7 +22,6 @@
         "test": "./run-tests"
     },
     "dependencies": {
-        "buster": ">=0.4.5",
         "buster-html-doc": ">=0.1"
     },
     "devDependencies": {

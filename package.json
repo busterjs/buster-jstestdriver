@@ -19,7 +19,7 @@
         "url": "git://gitorious.org/buster/buster-jstestdriver.git"
     },
     "scripts": {
-        "test": "node run-tests"
+        "test": "node node_modules/buster/bin/buster-test"
     },
     "dependencies": {
         "buster-html-doc": ">=0.1"

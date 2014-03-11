@@ -6,8 +6,8 @@ if (typeof module === "object" && typeof require === "function") {
     var when = require("when");
 }
 
-var assert = buster.assertions.assert;
-var refute = buster.assertions.refute;
+var assert = buster.referee.assert;
+var refute = buster.referee.refute;
 
 buster.testCase("Buster JsTestDriver", {
     "console": {

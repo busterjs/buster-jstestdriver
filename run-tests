@@ -1,4 +1,0 @@
-#!/usr/bin/env node
-
-require("./lib/buster-jstestdriver");
-require("./test/buster-jstestdriver-test");

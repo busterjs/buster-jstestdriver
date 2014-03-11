@@ -19,12 +19,13 @@
         "url": "git://gitorious.org/buster/buster-jstestdriver.git"
     },
     "scripts": {
-        "test": "./run-tests"
+        "test": "node run-tests"
     },
     "dependencies": {
         "buster-html-doc": ">=0.1"
     },
     "devDependencies": {
+        "buster": ">=0.4.5",
         "buster-configuration": "*",
         "when": "https://github.com/cujojs/when/tarball/1.3.0"
     }

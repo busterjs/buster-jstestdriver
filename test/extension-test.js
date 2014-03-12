@@ -1,6 +1,7 @@
 var buster = require("buster");
 var configuration = require("buster-configuration");
 var ext = require("../lib/extension");
+var assert = buster.referee.assert;
 
 function process(group, then, errBack) {
     group.resolve().then(function (resourceSet) {
@@ -10,7 +11,7 @@ function process(group, then, errBack) {
 
 buster.testCase("Buster JsTestDriver extension", {
     "adds bundle as framework": function (done) {
-        var config = configuration.create();
+        var config = configuration.createConfiguration();
         var group = config.addGroup("Some tests", {
             resources: [{ path: "/test.js", content: "//Hey" }],
             tests: ["/test.js"]
@@ -25,7 +26,7 @@ buster.testCase("Buster JsTestDriver extension", {
     },
 
     "extracts html doc from tests": function (done) {
-        var group = configuration.create().addGroup("Some tests", {
+        var group = configuration.createConfiguration().addGroup("Some tests", {
             resources: [{
                 path: "/buster.js",
                 content: "function () { /*:DOC el = <p></p>*/ }"

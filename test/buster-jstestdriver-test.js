@@ -161,7 +161,7 @@ buster.testCase("Buster JsTestDriver", {
 
         setUp: function () {
             this.root = Path.resolve(__dirname, "..");
-            this.configuration = buster.eventEmitter.create();
+            this.configuration = buster.testRunner.create();
             this.addResource = this.stub();
             this.addFileResource = this.spy();
             this.appendToLoad = this.spy();

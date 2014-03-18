@@ -2,7 +2,7 @@ if (typeof module === "object" && typeof require === "function") {
     var buster = require("buster");
     require("../lib/buster-jstestdriver");
     var busterJstd = require("../lib/extension");
-    var Path = require("path");
+    var path = require("path");
     var when = require("when");
 }
 
@@ -160,7 +160,7 @@ buster.testCase("Buster JsTestDriver", {
         requiresSupportFor: { "Node buster-jstestdriver module": busterJstd },
 
         setUp: function () {
-            this.root = Path.resolve(__dirname, "..");
+            this.root = path.resolve(__dirname, "..");
             this.configuration = buster.testRunner.create();
             this.addResource = this.stub();
             this.addFileResource = this.spy();
@@ -178,8 +178,8 @@ buster.testCase("Buster JsTestDriver", {
             this.configuration.emit("load:framework", this.resourceSet);
 
             assert.called(this.resourceSet.addFileResource);
-            assert.calledWith(this.addFileResource, this.root + "/lib/buster-jstestdriver.js");
-            assert.calledWith(this.addFileResource, this.root + "/Asserts.js");
+            assert.calledWith(this.addFileResource, path.join(this.root, "/lib/buster-jstestdriver.js"));
+            assert.calledWith(this.addFileResource, path.join(this.root, "/Asserts.js"));
         },
 
         "should serve combined library": function () {

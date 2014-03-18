@@ -19,7 +19,7 @@ buster.testCase("Buster JsTestDriver extension", {
         group.extensions.push(ext.create());
 
         group.resolve().then(done(function (resourceSet) {
-            assert.equals(resourceSet.length, 4);
+            assert.equals(resourceSet.length, 5);
             assert.equals(resourceSet.loadPath.paths(),
                           ["/jstd/bundle.js", "/test.js"]);
         }), done(function (err) { buster.log(err); }));

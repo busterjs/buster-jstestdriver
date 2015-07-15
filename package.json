@@ -13,6 +13,7 @@
         "email": "august.lilleaas@gmail.com",
         "url": "http://augustl.com"
     }],
+    "license": "BSD-3-Clause",
     "main": "./lib/buster-jstestdriver",
     "repository": {
         "type": "git",
